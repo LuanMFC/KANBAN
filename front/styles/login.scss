@@ -1,0 +1,17 @@
+@import "./color.scss";
+
+.login{
+    section{
+        background: $base-color;
+
+        .Button{
+            background-color: $main-color;
+            color: $light-color;
+
+        }
+
+        .register-link{
+            color: $main-color;
+        }
+    }
+}

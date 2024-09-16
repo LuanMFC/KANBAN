@@ -3,10 +3,11 @@
 import { ThemeProvider } from "styled-components";
 import { Link } from "@nextui-org/link";
 
+import { Header } from "./components/Header";
+
 import { SideBar } from "@/components/Sidebar";
 import { defaultTheme } from "@/styles/themes/default";
-import { GlobalStyle } from "@/styles/globals";
-import { Header } from "@/components/Header";
+import { GlobalStyle } from "@/styles/globals.styles";
 
 export default function PageLayoutDefault({
   children,
@@ -16,8 +17,8 @@ export default function PageLayoutDefault({
   return (
     <ThemeProvider theme={defaultTheme}>
       <div className="PageLayoutDefault">
-        <SideBar />
         <Header />
+        <SideBar />
         {children}
         <footer className="Footer w-full flex items-center justify-center py-3">
           <Link

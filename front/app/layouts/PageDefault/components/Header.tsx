@@ -1,4 +1,3 @@
-import { Breadcrumbs, BreadcrumbItem } from "@nextui-org/breadcrumbs";
 import {
   Dropdown,
   DropdownItem,
@@ -7,27 +6,32 @@ import {
 } from "@nextui-org/dropdown";
 import { User } from "@nextui-org/user";
 import { Switch } from "@nextui-org/switch";
-import { Divider } from "@nextui-org/divider";
 import { Badge } from "@nextui-org/badge";
+import { FaBars, FaRegBell } from "react-icons/fa";
+import Image from "next/image";
 
-import { MoonIcon, SunIcon } from "./icons";
+import { MoonIcon, SunIcon } from "@/components/icons";
+import { NavBarComponente } from "@/styles/Header.styles";
+
 export function Header() {
   return (
-    <header className="Header m-5">
-      <nav className="flex justify-between items-center">
-        <Breadcrumbs>
-          <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem>Music</BreadcrumbItem>
-          <BreadcrumbItem>Artist</BreadcrumbItem>
-          <BreadcrumbItem>Album</BreadcrumbItem>
-          <BreadcrumbItem>Song</BreadcrumbItem>
-        </Breadcrumbs>
+    <header className="Header">
+      <NavBarComponente>
+        <div className="Container_MenuLogo flex items-center justify-between gap-5">
+          <FaBars className="cursor-pointer" size={24} />
+          <Image
+            alt="Logo Kanban"
+            height={100}
+            src={"./Logomarca2.svg"}
+            width={120}
+          />
+        </div>
 
-        <div className="GroupOptions flex items-center justify-between gap-3">
+        <div className="GroupOptions flex items-center justify-between gap-5">
           <Switch
             defaultSelected
-            color="secondary"
-            size="lg"
+            color="primary"
+            size="md"
             thumbIcon={({ isSelected, className }) =>
               isSelected ? (
                 <SunIcon className={className} />
@@ -36,15 +40,12 @@ export function Header() {
               )
             }
           />
-          <div className="w-[0.1rem] h-5 bg-blue-500" />
 
-          <Badge color="primary" content="5">
-            <div className="w-9 h-9 rounded-full bg-blue-500" />
+          <Badge color="primary" content="9">
+            <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center">
+              <FaRegBell className="text-ligth" size={20} />
+            </div>
           </Badge>
-
-          <Divider className="text-blue-500" orientation="vertical" />
-
-          <Divider orientation="vertical" />
 
           <Dropdown placement="bottom-start">
             <DropdownTrigger>
@@ -53,6 +54,7 @@ export function Header() {
                 avatarProps={{
                   isBordered: true,
                   src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+                  className: "w-9 h-9",
                 }}
                 className="transition-transform"
                 description="@tonyreichert"
@@ -78,7 +80,7 @@ export function Header() {
             </DropdownMenu>
           </Dropdown>
         </div>
-      </nav>
+      </NavBarComponente>
     </header>
   );
 }

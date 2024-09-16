@@ -8,17 +8,20 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .PageLayoutDefault{
+    background-color: ${(props) => props.theme.ligth};
     min-Height: 100vh;
     display: grid;
-    grid-template-columns: 18.75rem 1fr 1fr 1fr;
-    grid-template-rows: 5rem 1fr 1fr 1fr;
+    grid-template-columns: 14.375rem 1fr 1fr 1fr;
+    grid-template-rows: 5rem auto 1fr;
     grid-template-areas: 
-    "SideBar Header Header Header"
-    "SideBar auto auto auto"
-    "SideBar auto auto auto"
+    "Header Header Header Header"
+    "SideBar Main-Content Main-Content Main-Content"
     "SideBar Footer Footer Footer";
   }
   
+  .Main-Content{
+    grid-area: Main-Content;
+  }
   .SideBar{
     grid-area: SideBar;
   }

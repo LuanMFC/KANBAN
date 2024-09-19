@@ -45,7 +45,7 @@ module.exports = {
             700: "#8B8B8B",
             800: "#717171",
             900: "#575757",
-            foreground: "#BFBFBF", // contrast color
+            foreground: "#595959", // contrast color
             DEFAULT: "#BFBFBF",
           },
           terciary: {

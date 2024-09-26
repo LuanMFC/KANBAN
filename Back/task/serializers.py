@@ -1,21 +1,17 @@
-from rest_framework import serializers
 from .models import Task
-from user.models import CustomUser
-from user.serializers import CustomUserSerializer
+from rest_framework import serializers
+from status.serializers import StatusSerializer
+from priority.serializers import PrioritySerializer
 
-
-class TaskSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(
-        queryset=CustomUser.objects.all(), many=True
-    )
-    
-    class Meta:
-        model = Task
-        fields = ("__all__")
 
 class GetTaskSerializer(serializers.ModelSerializer):
-    user = CustomUserSerializer(many=True, read_only=True)
+  status = StatusSerializer(read_only=True)
+  priority = PrioritySerializer(read_only=True)
+  class Meta:
+    model = Task
+    fields = '__all__'
 
-    class Meta:
-        model = Task
-        fields = ('__all__')
+class TaskSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Task
+    fields = '__all__'

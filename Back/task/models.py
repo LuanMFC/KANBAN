@@ -10,9 +10,9 @@ class Task(models.Model):
   priority = models.ForeignKey(Status, on_delete=models.PROTECT, related_name='task_status')
   status = models.ForeignKey(Priority, on_delete=models.PROTECT, related_name='task_priority')
   author = models.ManyToManyField(User, related_name='task_author')
-  date_created = models.DateTimeField()
-  expected_conclusion = models.DateField()
-  date_completed = models.DateTimeField()
+  date_created = models.DateTimeField(auto_now=True)
+  expected_conclusion = models.DateField(blank=True, null=True)
+  date_completed = models.DateTimeField(blank=True, null=True)
 
 
   def __str__(self):

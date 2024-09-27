@@ -1,4 +1,5 @@
-from rest_framework import generics, views
+from rest_framework import generics, views, status
+from rest_framework.response import Response
 from .models import Task
 from .serializers import TaskSerializer, GetTaskSerializer
 
@@ -17,19 +18,25 @@ class TaskDeleteUpdateRetrieverView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
 
 
-class TaskPerPeriod(views.APIView):
-    def get(self):
-        tasks = Task.objects.filter(date_created__range=[
-            self.request.GET('date_created_start'),
-            self.request.GET('date_created_end')
-        ])
+class TaskPerPeriodOrUser(views.APIView):
+    def get(self, request):
+        tasks = Task.objects.all()
+        date_start = request.query_params.get('date_created_start')
+        date_end = request.query_params.get('date_created_end')
+        user = request.query_params.get('user')
+        if date_start is not None and date_end is not None and user is None:
+            tasks = Task.objects.filter(date_created__range=[
+                        date_start,
+                        date_end
+                    ])
+        elif date_start is None and date_end is None and user is not None:
+            tasks = Task.objects.filter(author__username=user)
 
-        serializer = TaskSerializer(tasks, many=True)
-        return serializer.data
+        elif date_start is not None and date_end is not None and user is not None:
+            tasks = Task.objects.filter(date_created__range=[
+                        date_start,
+                        date_end
+                    ], author__username=user)
 
-
-class TaskPerUser(views.APIView):
-    def get(self):
-        tasks = Task.objects.filter(author=self.request.GET('user'))
-        serializer = TaskSerializer(tasks, many=True)
-        return serializer.data
+        serializer = GetTaskSerializer(tasks, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

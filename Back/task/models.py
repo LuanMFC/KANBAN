@@ -2,7 +2,7 @@ from django.db import models
 from status.models import Status
 from priority.models import Priority
 from django.contrib.auth.models import User
-
+from kanban.models import KanBan
 
 class Task(models.Model):
     title = models.CharField(max_length=50)
@@ -17,6 +17,7 @@ class Task(models.Model):
         on_delete=models.PROTECT,
         related_name='task_priority'
     )
+    kanban = models.ForeignKey(KanBan, on_delete=models.PROTECT, related_name='task_kanban')
     author = models.ManyToManyField(User, related_name='task_author')
     date_created = models.DateTimeField(auto_now=True)
     expected_conclusion = models.DateField(blank=True, null=True)

@@ -8,6 +8,7 @@ import { Header } from "./components/Header";
 import { SideBar } from "@/components/Sidebar";
 import { defaultTheme } from "@/styles/themes/default";
 import { GlobalStyle } from "@/styles/globals.styles";
+import { MyContextProvider } from "@/contexts/sidebarContext";
 
 export default function PageLayoutDefault({
   children,
@@ -17,8 +18,10 @@ export default function PageLayoutDefault({
   return (
     <ThemeProvider theme={defaultTheme}>
       <div className="PageLayoutDefault">
-        <Header />
-        <SideBar />
+        <MyContextProvider>
+          <Header />
+          <SideBar />
+        </MyContextProvider>
         {children}
         <footer className="Footer w-full flex items-center justify-center py-3">
           <Link

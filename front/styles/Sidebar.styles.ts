@@ -1,16 +1,20 @@
 import styled from "styled-components";
 
-export const SideBarComponent = styled.aside`
-  width: inherit;
+interface ButtonProps {
+  isActivated?: boolean;
+}
+
+export const SideBarComponent = styled.aside<ButtonProps>`
+  width: ${(props) => (props.isActivated ? "4rem" : "inherit")};
   height: 100%;
   background-color: ${(props) => props.theme.ligth};
   border-right: 1px solid ${(props) => props.theme.secondary};
 `;
 
-export const ListOptionsCompontent = styled.ul`
+export const ListOptionsCompontent = styled.ul<ButtonProps>`
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: ${(props) => (props.isActivated ? "center" : "start")};
   justify-content: space-between;
 
   height: 100%;
@@ -19,9 +23,10 @@ export const ListOptionsCompontent = styled.ul`
   padding: 1rem 0.5rem;
 `;
 
-export const OptionsComponent = styled.li`
+export const OptionsComponent = styled.li<ButtonProps>`
   display: flex;
   align-items: center;
+  justify-content: ${(props) => (props.isActivated ? "center" : "start")};
   gap: 0.5rem;
 
   width: 100%;
@@ -36,6 +41,7 @@ export const OptionsComponent = styled.li`
     flex-shrink: 0;
   }
   span {
+    display: ${(props) => (props.isActivated ? "none" : "flex")};
     flex-grow: 1;
     white-space: nowrap; /* Impede que o texto quebre em várias linhas */
     overflow: hidden; /* Esconde o texto que ultrapassa a largura */

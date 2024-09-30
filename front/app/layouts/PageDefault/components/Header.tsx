@@ -9,16 +9,27 @@ import { Switch } from "@nextui-org/switch";
 import { Badge } from "@nextui-org/badge";
 import { FaBars, FaRegBell } from "react-icons/fa";
 import Image from "next/image";
+import { useContext } from "react";
 
 import { MoonIcon, SunIcon } from "@/components/icons";
 import { NavBarComponente } from "@/styles/Header.styles";
+import { ContextData } from "@/contexts/sidebarContext";
 
 export function Header() {
+  const ContextSideBar = useContext(ContextData);
+
+  if (!ContextSideBar) return null;
+  const { activated, setActivated } = ContextSideBar;
+
   return (
     <header className="Header">
       <NavBarComponente>
         <div className="Container_MenuLogo flex items-center justify-between gap-5">
-          <FaBars className="cursor-pointer" size={24} />
+          <FaBars
+            className="cursor-pointer"
+            size={24}
+            onClick={() => setActivated(!activated)}
+          />
           <Image
             alt="Logo Kanban"
             height={100}

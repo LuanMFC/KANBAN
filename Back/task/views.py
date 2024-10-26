@@ -1,8 +1,8 @@
 from rest_framework import generics, views, status
 from rest_framework.response import Response
 from .models import Task
-from .serializers import TaskSerializer, GetTaskSerializer
-
+from .serializers import TaskSerializer, GetTaskSerializer, TaskPerStatusSerializer
+from django.db.models import Count
 
 class TaskListCreateView(generics.ListCreateAPIView):
     queryset = Task.objects.all()
@@ -40,3 +40,9 @@ class TaskPerPeriodOrUser(views.APIView):
 
         serializer = GetTaskSerializer(tasks, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+class TaskPerStatus(views.APIView):
+    def get(self, request, *args, **kwargs):
+        status_task = Task.objects.values('status__name').annotate(count=Count('id'))
+        return Response({"status": status_task}, status=status.HTTP_200_OK)
